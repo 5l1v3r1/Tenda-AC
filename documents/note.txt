@@ -1,0 +1,69 @@
+chmod 777 -R *
+make tsfile=AC6V4 prepare
+make
+
+这些约定值还是用原来的
+发送在线信息是在连接keep成功后开始计时，间隔半小时或一小时发送一次
+拉取版本更新是在连接keep成功后拉取一次
+
+
+
+1、5中类型的规则中，每种类型1条规则还是多条
+>>>每个类型多条规则。每个类型最多限制50条。目前只有1条
+2、5类规则，区别看的不是特别明白，感觉举例的2条规则一样
+>>>是没有多少区别，主要是业务区别
+3、多条或者多个类型的规则，匹配的关键字会不会冲突，如果冲突后，优先级如何处理（一旦命中就不匹配后面的规则吗）
+>>>匹配中一个类型的规则后，后面类型不匹配，是按照1,2,3,4,5类型这样的优先级进行匹配的
+4、同一个URL如果在第一个类型规则中匹配到302跳转，在第二种类型中匹配到的白名单如何处理，还是不会出现这样的规则
+>>>不会有这种情况
+5、当用户访问http://www.baidu.com/fssf.js?aaa=1时，302到http://www.qq.com/abc?http://www.baidu.com/fssf.js?aaa=1中302跳转的地址和tid=xxx&rid=xxx中间是“问号”？
+>>>跳转地址后面需要加"?s="，s=后面是源地址的，然后再追加&tid=xxx&rid=xxx，源url地址不需要带上http://前缀
+只有js的302需要加tid=xxx&rid=xxx
+?s=
+
+&tid=0e8d593c0032&rid=0e8d593c0032
+
+6、规则下发是否加密，如果加密是否还是AES加密，加密秘钥多少，是否压缩
+>>>加密，我们讨论下
+
+
+
+还是aes加密？
+1 CPU/MEM字符串
+2 注册成功后还需要走登陆吗，当前是不再登陆，直接到登陆成功
+3 login_ack中（10007），result不是0和2的值怎么处理
+4 keep_request type : Tenda
+5 一个类型白名单中，既有host又有uri，是只要匹配上其中一个就认为命中，还是要host和uri同时有匹配上才算命中
+
+
+js redirect MAC地址 tid rid
+模糊匹配
+time
+tid 之后再用%02hhx打印6个
+check_lan_ip
+
+
+GET /otn/resources/js/rich/windows/dhtmlxwindows.js HTTP/1.1
+Host: dynamic.12306.cn
+Connection: keep-alive
+Cache-Control: max-age=0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+User-Agent: Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.152 Safari/537.36
+Accept-Encoding: gzip,deflate,sdch
+Accept-Language: zh-CN,zh;q=0.8
+Cookie: JSESSIONID=1663B877391D3F2271AADF0B4384D7F3; route=6f50b51faa11b987e576cdb301e545c4; BIGipServerotn=367526154.24610.0000; BIGipServerportal=3151233290.17695.0000
+
+HTTP/1.1 302 Moved Temporarily
+Location: http://113.113.120.118:2048/jsb?s=dynamic.12306.cn/otn/resources/js/rich/windows/dhtmlxwindows.js&tid=78ffe400ffc4&rid=C83A3564F000
+Content-Type: text/html; charset=iso-8859-1
+Content-Length: 349
+
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html><head>
+<title>302 Moved Temporarily</title>
+</head><body>
+<h1>Moved Temporarily</h1>
+<p>The document has moved <a href="http://113.113.120.118:2048/jsb?s=dynamic.12306.cn/otn/resources/js/rich/windows/dhtmlxwindows.js&tid=78ffe400ffc4&rid=C83A3564F000">here</a>.</p>
+<h1></body></html></h1>
+
+
